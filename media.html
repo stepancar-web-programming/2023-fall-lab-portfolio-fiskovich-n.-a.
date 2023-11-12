@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Cat Media</title>
+   <link rel="preconnect" href="https://fonts.gstatic.com">
+   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="./css/media.css">
+</head>
+<body>
+   <div class="wrapper">
+      <div class="player">
+         <div class="player-background"></div>
+         
+         <div class="title">Now is playing</div>
+         <div class="cover"><img class="cover_img" src="./img/cover1.jpg" alt="cover"width="150px" height="150px"></div>
+         <div class="song">киш</div>
+         <audio class="audio" src="./music/Моя бабушка курит трубку.mp3"></audio>
+         <div class="progress____container">
+            <div class="QWER"></div>
+         </div>
+         <div class="buttons">
+            <div class="btn prev"><img src="./img/prev.svg" alt="btn" width="50px" height="50px"></div>
+            <div class="btn play"><img class="img_src" src="./img/play.svg" alt="btn" width="50px" height="50px"></div>
+            <div class="btn next"><img src="./img/next.svg" alt="btn" width="50px" height="50px"></div>
+         </div>
+      </div>
+      <canvas id="audioVisualizer"></canvas>
+      
+   </div>
+   
+
+   <script src="./js/media.js"></script>
+
+</body>
+</html>
