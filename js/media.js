@@ -12,7 +12,7 @@ const audioVisualizer = document.getElementById('audioVisualizer');
 const ctx = audioVisualizer.getContext('2d');
 let playyy = false;
 
-const songs = ['Котик', 'Когдя я стану кошкой', 'Котозависимый', 'Чёрный кот'];
+const songs = ['Котик', 'Когда я стану кошкой', 'Котозависимый', 'Чёрный кот'];
 let songIndex = 0;
 
 function loadSong(song) {
