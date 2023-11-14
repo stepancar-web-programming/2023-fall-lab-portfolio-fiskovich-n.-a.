@@ -12,13 +12,13 @@ const audioVisualizer = document.getElementById('audioVisualizer');
 const ctx = audioVisualizer.getContext('2d');
 let playyy = false;
 
-const songs = ['Моя бабушка курит трубку', '30 лет', 'На девятке'];
+const songs = ['Котик', 'Когдя я стану кошкой', 'Котозависимый', 'Чёрный кот'];
 let songIndex = 0;
 
 function loadSong(song) {
   title.innerHTML = song;
   audio.src = `./music/${song}.mp3`;
-  cover.src = `./img/cover${songIndex + 1}.jpg`;
+  cover.src = `./img/cover${songIndex + 1}.png`;
 }
 
 loadSong(songs[songIndex]);

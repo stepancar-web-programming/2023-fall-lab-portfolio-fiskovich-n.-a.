@@ -13,4 +13,3 @@ video.onclick = function() {
         this.pause();
     }
 };
-
