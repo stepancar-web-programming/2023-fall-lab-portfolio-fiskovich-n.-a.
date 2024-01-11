@@ -10,7 +10,12 @@ body {
 	box-sizing: border-box;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
 	padding: 0;
 	margin: 0;
 	text-transform: uppercase;
@@ -19,6 +24,7 @@ h1, h2, h3, h4, h5, h6 {
 h2 {
 	font-size: 50px;
 	margin-bottom: 58px;
+	text-align: center;
 }
 
 h3 {
@@ -31,22 +37,23 @@ a {
 }
 
 section {
-	padding-top: 113px	
+	padding-top: 113px
 }
 
 p {
 	margin: 0;
 }
 
-ul, li {
+ul,
+li {
 	display: block;
 	padding: 0;
 	margin: 0;
 }
 
 .container {
-	width: 1170px;
-	margin: 0 auto; 
+	width: 1000px;
+	margin: 0 auto;
 }
 
 .header {
@@ -67,8 +74,8 @@ header a {
 .menu {
 	display: flex;
 	flex-grow: 1;
-	justify-content: center; 
-	
+	justify-content: center;
+
 }
 
 .menu li a {
@@ -82,27 +89,28 @@ header a {
 }
 
 .menu li {
-	margin-right: 80px;
+	margin: 0 40px;
 }
 
 .nav {
 	display: flex;
 	align-items: center;
 }
-.centr{
+
+.centr {
 	padding-top: 50px;
 }
 
-input{
+input {
 	display: none;
 }
 
-.top-content{
-	margin: 20px auto 20px auto; 
+.top-content {
+	margin: 20px auto 20px auto;
 	text-align: center;
 }
 
-.top-content label{
+.top-content label {
 	display: inline-block;
 	height: 100%;
 	padding: 0 5px;
@@ -116,11 +124,11 @@ input{
 	border-bottom: 1px solid transparent;
 }
 
-.top-content label:hover{
+.top-content label:hover {
 	border-bottom: 1px solid #000;
 }
 
-.photo-gallery{
+.photo-gallery {
 	width: 90%;
 	margin: auto;
 	display: grid;
@@ -128,7 +136,7 @@ input{
 	grid-gap: 15px;
 }
 
-.pic{
+.pic {
 	position: relative;
 	height: 200px;
 	border-radius: 10px;
@@ -137,19 +145,21 @@ input{
 	transition: .5s;
 }
 
-.pic img{
+.pic img {
 	width: 100%;
-	height: 100%;
 	border-radius: 10px;
 	transition: .5s;
+	object-fit: cover !important;
+	height: 100% !important;
 }
-.pic img:hover{
-transform: scale(1.1);
+
+.pic img:hover {
+	transform: scale(1.1);
 }
 
 .container .pop-up {
 	position: fixed;
-	top:0;
+	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
@@ -157,18 +167,20 @@ transform: scale(1.1);
 	display: none;
 
 }
-.container .pop-up img {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	border: 5px solid #fff;
-	border-radius: 8px;
-	width: 700px;
 
+.container .pop-up img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 5px solid #fff;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 80vh;
+    max-height: 80vh;
 }
 
-.container .pop-up span{
+.container .pop-up span {
 	position: fixed;
 	top: 10px;
 	right: 20px;
@@ -184,23 +196,23 @@ transform: scale(1.1);
 }
 
 
-#check1:checked ~ .container .photo-gallery .pic{
+#check1:checked~.container .photo-gallery .pic {
 	transform: scale(1);
 	opacity: 1;
 	position: relative;
 }
 
 
-#check2:checked ~ .container .photo-gallery .Childhood{
+#check2:checked~.container .photo-gallery .Childhood {
 	transform: scale(1);
 	opacity: 1;
 	position: relative;
 
 }
 
-#check2:checked ~ .container .photo-gallery .Selfie,
-#check2:checked ~ .container .photo-gallery .Casual,
-#check2:checked ~ .container .photo-gallery .Sleeping{
+#check2:checked~.container .photo-gallery .Selfie,
+#check2:checked~.container .photo-gallery .Casual,
+#check2:checked~.container .photo-gallery .Sleeping {
 	opacity: 0;
 	transform: scale(0);
 	position: absolute;
@@ -208,46 +220,46 @@ transform: scale(1.1);
 }
 
 
-#check3:checked ~ .container .photo-gallery .Selfie{
+#check3:checked~.container .photo-gallery .Selfie {
 	transform: scale(1);
 	opacity: 1;
 	position: relative;
 
 }
 
-#check3:checked ~ .container .photo-gallery .Childhood,
-#check3:checked ~ .container .photo-gallery .Casual,
-#check3:checked ~ .container .photo-gallery .Sleeping{
+#check3:checked~.container .photo-gallery .Childhood,
+#check3:checked~.container .photo-gallery .Casual,
+#check3:checked~.container .photo-gallery .Sleeping {
 	opacity: 0;
 	transform: scale(0);
 	position: absolute;
 	transition: 0s;
 }
 
-#check4:checked ~ .container .photo-gallery .Casual{
+#check4:checked~.container .photo-gallery .Casual {
 	transform: scale(1);
 	opacity: 1;
 	position: relative;
 }
 
-#check4:checked ~ .container .photo-gallery .Childhood,
-#check4:checked ~ .container .photo-gallery .Selfie,
-#check4:checked ~ .container .photo-gallery .Sleeping{
+#check4:checked~.container .photo-gallery .Childhood,
+#check4:checked~.container .photo-gallery .Selfie,
+#check4:checked~.container .photo-gallery .Sleeping {
 	opacity: 0;
 	transform: scale(0);
 	position: absolute;
 	transition: 0s;
 }
 
-#check5:checked ~ .container .photo-gallery .Sleeping{
+#check5:checked~.container .photo-gallery .Sleeping {
 	transform: scale(1);
 	opacity: 1;
 	position: relative;
 }
 
-#check5:checked ~ .container .photo-gallery .Childhood,
-#check5:checked ~ .container .photo-gallery .Selfie,
-#check5:checked ~ .container .photo-gallery .Casual{
+#check5:checked~.container .photo-gallery .Childhood,
+#check5:checked~.container .photo-gallery .Selfie,
+#check5:checked~.container .photo-gallery .Casual {
 	opacity: 0;
 	transform: scale(0);
 	position: absolute;
@@ -255,49 +267,128 @@ transform: scale(1.1);
 }
 
 
-
-.footer
-{
+.footer {
 	background-color: black;
 	margin-top: 20%;
 	margin-bottom: -20px;
 }
 
 
-.social
-{
+.social {
 	text-align: center;
 	padding-top: 20px;
 	padding-bottom: 20px;
-	
+
 }
 
-.social a 
-{
+.social a {
 	font-size: 20px;
 	display: inline-block;
 	border: 1px solid beige;
 	color: whitesmoke;
 	width: 45px;
 	border-radius: 8px;
-	
+
 }
 
-.social a:hover
-{
+.social a:hover {
 	background-color: antiquewhite;
 }
 
-.copy-right
-{
+.copy-right {
 	text-align: center;
 	padding-bottom: 30px;
 	color: whitesmoke;
 }
 
-.text-footer
-{
+.text-footer {
 	padding-top: 20px;
 	text-align: center;
 	color: whitesmoke;
+}
+
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+	.container {
+		width: 750px;
+	}
+
+	body {
+		font-size: 14px;
+	}
+
+	.menu li {
+		margin: 0 20px;
+	}
+
+	.pic {
+		position: relative;
+		height: 150px;
+	}
+}
+
+
+@media only screen and (min-width: 500px) and (max-width: 768px) {
+	.container {
+		width: 490px;
+	}
+
+	h3 {
+		font-size: 20px;
+	}
+
+	h2 {
+		font-size: 30px;
+		margin-bottom: 30px;
+	}
+
+	body {
+		font-size: 12px;
+	}
+
+	.menu li {
+		margin: 0 20px;
+	}
+
+	.photo-gallery {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	.pic {
+		position: relative;
+		height: 125px;
+	}
+}
+
+
+@media only screen and (min-width: 375px) and (max-width: 499px) {
+	.container {
+		width: 370px;
+	}
+
+	h3 {
+		font-size: 20px;
+	}
+
+	h2 {
+		font-size: 30px;
+		margin-bottom: 30px;
+	}
+
+	body {
+		font-size: 12px;
+	}
+
+	.menu li {
+		margin: 0 10px;
+	}
+
+	.photo-gallery {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	.pic {
+		position: relative;
+		height: 100px;
+	}
 }
