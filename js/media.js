@@ -1,7 +1,4 @@
 const player = document.querySelector('.player');
-const playBtn = document.querySelector('.play');
-const prevBtn = document.querySelector('.prev');
-const nextBtn = document.querySelector('.next');
 const audio = document.querySelector('.audio');
 const progressContainer = document.querySelector('.progress____container');
 const progress = document.querySelector('.QWER');
@@ -11,9 +8,14 @@ const img_src = document.querySelector('.img_src');
 const audioVisualizer = document.getElementById('audioVisualizer');
 const ctx = audioVisualizer.getContext('2d');
 let playyy = false;
+let animationFrameId;
+let audioContext;
+let audioSource;
+let analyser;
 
 const songs = ['Котозависимый', 'Когда я стану кошкой', 'Котик', 'Чёрный кот'];
 let songIndex = 0;
+
 
 function loadSong(song) {
   title.innerHTML = song;
@@ -23,6 +25,62 @@ function loadSong(song) {
 
 loadSong(songs[songIndex]);
 
+function setupAudioVisualizer() {
+  if (!audioContext) {
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    audioSource = audioContext.createMediaElementSource(audio);
+    analyser = audioContext.createAnalyser();
+    audioSource.connect(analyser);
+    analyser.connect(audioContext.destination);
+  }
+
+  audioVisualizer.width = 900;
+  audioVisualizer.height = 900;
+}
+
+function drawVisualizer() {
+  const WIDTH = audioVisualizer.width;
+  const HEIGHT = audioVisualizer.height;
+  const centerX = WIDTH / 2;
+  const centerY = HEIGHT / 2;
+  const maxRadius = Math.min(centerX, centerY);
+  const radiusMultiplier = 0.8;
+
+  animationFrameId = requestAnimationFrame(drawVisualizer);
+
+  const bufferLength = 364;
+  const dataArray = new Uint8Array(bufferLength);
+  analyser.getByteFrequencyData(dataArray);
+
+  ctx.clearRect(0, 0, WIDTH, HEIGHT);
+
+  for (let i = 0; i < bufferLength; i++) {
+    const amplitude = dataArray[i];
+    const radius = ((amplitude / 200) * maxRadius) * radiusMultiplier;
+    const angle = (i / bufferLength) * Math.PI * 20;
+
+    const x = centerX + radius * Math.cos(angle);
+    const y = centerY + radius * Math.sin(angle);
+
+    const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius);
+
+    const distanceFromCenter = Math.sqrt((x - centerX) ** 2 + (y - centerY) ** 2);
+    const colorValue = distanceFromCenter / maxRadius;
+
+    const red = 255 * (1 - colorValue * 0.7);
+    const green = 0;
+    const blue = 255 * colorValue;
+
+    gradient.addColorStop(0, `rgb(${red}, ${green}, ${blue})`);
+    gradient.addColorStop(1, 'white');
+
+    ctx.fillStyle = gradient;
+    ctx.beginPath();
+    ctx.arc(x, y, 10, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
 function playSong() {
   player.classList.add('play');
   cover.classList.add('active');
@@ -30,61 +88,7 @@ function playSong() {
   playyy = true;
   audio.play();
 
-  const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-  const audioSource = audioContext.createMediaElementSource(audio);
-  const analyser = audioContext.createAnalyser();
-  audioSource.connect(analyser);
-  analyser.connect(audioContext.destination);
-
-  const audioVisualizer = document.getElementById('audioVisualizer');
-  audioVisualizer.width = 900;
-  audioVisualizer.height = 900;
-  const ctx = audioVisualizer.getContext('2d');
-
-  const bufferLength = 364;
-  const dataArray = new Uint8Array(bufferLength);
-
-  function drawVisualizer() {
-    const WIDTH = audioVisualizer.width;
-    const HEIGHT = audioVisualizer.height;
-    const centerX = WIDTH / 2;
-    const centerY = HEIGHT / 2;
-    const maxRadius = Math.min(centerX, centerY);
-    const radiusMultiplier = 0.8;
-
-    requestAnimationFrame(drawVisualizer);
-
-    analyser.getByteFrequencyData(dataArray);
-
-    ctx.clearRect(0, 0, WIDTH, HEIGHT);
-
-    for (let i = 0; i < bufferLength; i++) {
-      const amplitude = dataArray[i];
-      const radius = ((amplitude / 200) * maxRadius) * radiusMultiplier;
-      const angle = (i / bufferLength) * Math.PI * 20;
-
-      const x = centerX + radius * Math.cos(angle);
-      const y = centerY + radius * Math.sin(angle);
-
-      const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius);
-
-      const distanceFromCenter = Math.sqrt((x - centerX) ** 2 + (y - centerY) ** 2);
-      const colorValue = distanceFromCenter / maxRadius;
-
-      const red = 255 * (1 - colorValue*0.7);
-      const green = 0;
-      const blue = 255 * colorValue;
-
-      gradient.addColorStop(0, `rgb(${red}, ${green}, ${blue})`);
-      gradient.addColorStop(1, 'white');
-
-      ctx.fillStyle = gradient;
-      ctx.beginPath();
-      ctx.arc(x, y, 10, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  }
-  
+  setupAudioVisualizer();
   drawVisualizer();
 }
 
@@ -92,18 +96,11 @@ function pauseSong() {
   player.classList.remove('play');
   cover.classList.remove('active');
   img_src.src = './img/play.svg';
-  playyy = false;
   audio.pause();
+  cancelAnimationFrame(animationFrameId);
+  ctx.clearRect(0, 0, audioVisualizer.width, audioVisualizer.height);
+  playyy = false;
 }
-
-playBtn.addEventListener('click', () => {
-  const isPlaying = player.classList.contains('play');
-  if (isPlaying) {
-    pauseSong();
-  } else {
-    playSong();
-  }
-});
 
 function nextSong() {
   songIndex++;
@@ -116,8 +113,6 @@ function nextSong() {
   }
 }
 
-nextBtn.addEventListener('click', nextSong);
-
 function prevSong() {
   songIndex--;
   if (songIndex == -1) {
@@ -128,8 +123,6 @@ function prevSong() {
     playSong();
   }
 }
-
-prevBtn.addEventListener('click', prevSong);
 
 function updateProgress(e) {
   const { duration, currentTime } = e.srcElement;
@@ -149,3 +142,40 @@ function setProgress(e) {
 progressContainer.addEventListener('click', setProgress);
 
 audio.addEventListener('ended', nextSong);
+
+document.addEventListener('DOMContentLoaded', function () {
+  var playBtn = document.querySelector('.btn.play');
+  var prevBtn = document.querySelector('.btn.prev');
+  var nextBtn = document.querySelector('.btn.next');
+  var audio = document.querySelector('.audio');
+
+  playBtn.addEventListener('click', togglePlay);
+  prevBtn.addEventListener('click', playPrev);
+  nextBtn.addEventListener('click', playNext);
+
+  document.addEventListener('keydown', function (event) {
+      if (event.code === 'Space') {
+          togglePlay();
+      } else if (event.code === 'ArrowLeft') {
+          playPrev();
+      } else if (event.code === 'ArrowRight') {
+          playNext();
+      }
+  });
+
+  function togglePlay() {
+      if (audio.paused) {
+        playSong();
+      } else {
+        pauseSong();
+      }
+  }
+
+  function playPrev() {
+    prevSong()
+  }
+
+  function playNext() {
+    nextSong()
+  }
+});
