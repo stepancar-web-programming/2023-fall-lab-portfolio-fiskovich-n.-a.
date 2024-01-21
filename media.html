@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Cat Media</title>
+   <!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();
+   for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+   k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(96198044, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true,
+        webvisor:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/96198044" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+   <link rel="preconnect" href="https://fonts.gstatic.com">
+   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="./css/media.css">
+   <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+   <link rel="icon" href="img/favicon.png" type="image/x-icon">
+</head>
+
+<body>
+   <header id="header" class="header">
+      <div class="container">
+         <div class="nav">
+            <ul class="menu">
+               <li>
+                  <a href="index.html">
+                     Home
+                  </a>
+               </li>
+               <li>
+                  <a href="galery.html">
+                     Photogallery
+                  </a>
+               </li>
+               <li>
+                  <a href="media.html">
+                     music player for cats
+                  </a>
+               </li>
+            </ul>
+         </div>
+   </header>
+   <div class="wrapper">
+      <div class="player">
+         <div class="player-background"></div>
+         <div class="title">Now is playing</div>
+         <div class="cover"><img class="cover_img" src="./img/cover1.png" alt="cover" width="150px" height="150px">
+         </div>
+         <div class="song">киш</div>
+         <audio class="audio" src="./music/Моя бабушка курит трубку.mp3"></audio>
+         <div class="progress____container">
+            <div class="QWER"></div>
+         </div>
+         <div class="buttons">
+            <div class="btn prev" tabindex="0"><img src="./img/prev.svg" alt="btn" width="50px" height="50px"></div>
+            <div class="btn play" tabindex="0"><img class="img_src" src="./img/play.svg" alt="btn" width="50px" height="50px"></div>
+            <div class="btn next" tabindex="0"><img src="./img/next.svg" alt="btn" width="50px" height="50px"></div>
+        </div>
+      </div>
+      <canvas id="audioVisualizer"></canvas>
+   </div>
+   <script src="./js/media.js"></script>
+</body>
+
+</html>
